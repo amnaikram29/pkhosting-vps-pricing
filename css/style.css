@@ -641,8 +641,23 @@ img {
   color: var(--ink-950);
   font-size: 0.75rem;
   font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   white-space: nowrap;
   transform: translateX(-50%);
+}
+
+.card-tag {
+  margin: 0 0 var(--space-2);
+  color: var(--brand-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card-featured .card-tag {
+  color: var(--brand-500);
 }
 
 .card-title {
@@ -706,10 +721,13 @@ img {
   font-size: var(--text-sm);
 }
 
+/* Small print, like the reference. ink-600 on white is 8.4:1 */
 .billed {
   margin: var(--space-2) 0 0;
   color: var(--ink-600);
-  font-size: var(--text-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 /* Empty now. The min-height equals one filled badge (line 1.55 x 12px,
@@ -736,6 +754,13 @@ img {
   margin-top: var(--space-5);
   background: var(--brand-700);
   color: #fff;
+  /* A <button> gets a grey outset border and its own font by default, unlike
+     the <a> buttons that share .btn */
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+  /* The shared .btn shadow looks like a grey halo on a full-width button */
+  box-shadow: none;
 }
 
 .btn-card:hover {
@@ -820,17 +845,10 @@ img {
   }
 }
 
-/* Four columns, not three, so there is never a lone card on the last row */
+/* Three columns: the fourth card wraps onto its own row. That was chosen on
+   purpose; with three columns the cards stay wide enough for the price text. */
 @media (min-width: 1200px) {
   .cards {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .card {
-    padding: var(--space-5);
-  }
-
-  .amount {
-    font-size: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
