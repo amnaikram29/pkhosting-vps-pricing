@@ -152,7 +152,8 @@ desktopQuery.addEventListener("change", function (event) {
     if (state.period === "annual") {
       card.querySelector(".billed").textContent = joinAmount(billed) + " billed once a year";
     } else {
-      card.querySelector(".billed").textContent = "Billed monthly";
+      // Each card carries its own short note, all the same length so the cards stay level
+      card.querySelector(".billed").textContent = card.dataset.note;
     }
   }
 
