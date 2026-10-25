@@ -292,8 +292,9 @@ img {
   scroll-margin-top: calc(-1 * var(--header-offset));
 }
 
-/* Hidden unless JS is running: without JS the links just show as a row */
-.nav-toggle {
+/* The JS button and CSS-only label share the same appearance. */
+.nav-toggle,
+.nav-fallback-toggle {
   display: none;
   align-items: center;
   justify-content: center;
@@ -309,7 +310,8 @@ img {
 }
 
 @media (min-width: 640px) {
-  .nav-toggle {
+  .nav-toggle,
+  .nav-fallback-toggle {
     width: 44px;
     height: 44px;
   }
@@ -318,6 +320,29 @@ img {
 .js .nav-toggle {
   display: inline-flex;
   justify-self: end;
+}
+
+.nav-fallback-toggle {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.js .nav-fallback-check,
+.js .nav-fallback-toggle {
+  display: none;
+}
+
+.nav-fallback-check:focus-visible + .nav-fallback-toggle {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.nav-fallback-check:checked + .nav-fallback-toggle .nav-toggle-open {
+  display: none;
+}
+
+.nav-fallback-check:checked + .nav-fallback-toggle .nav-toggle-close {
+  display: block;
 }
 
 /* One button, two icons: aria-expanded decides which one shows */
@@ -333,6 +358,17 @@ img {
 /* Stops the page behind the drawer from scrolling */
 .nav-open {
   overflow: hidden;
+}
+
+/* Give the fallback links their own row, with room to wrap on small screens. */
+.site-nav {
+  display: none;
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.nav-fallback-check:checked ~ .site-nav {
+  display: block;
 }
 
 /* Mobile drawer: a full-height panel under the header, hidden until opened */
@@ -488,11 +524,14 @@ img {
     flex-wrap: nowrap;
   }
 
+  .nav-fallback-check,
+  .nav-fallback-toggle,
   .js .nav-toggle {
     display: none;
   }
 
   /* The nav takes all the space after the brand... */
+  .site-nav,
   .js .site-nav {
     display: block;
     position: static;
@@ -627,11 +666,44 @@ img {
   display: flex;
 }
 
-/* Needs JS to do anything, so it stays hidden without it. Below 1200px it is the first item
-   in the header (left of the brand), above that just left of Get Started
-   (placeCurrencySelect in js/app.js). */
+/* Keep the currency visible in the fallback; JS moves it at each breakpoint. */
 .currency-select {
-  display: none;
+  display: inline-block;
+}
+
+html:not(.js) .currency-select {
+  margin-left: auto;
+}
+
+/* Equal side columns keep the fallback logo centred while the menu is visible. */
+@media (width < 1200px) {
+  html:not(.js) .site-header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  html:not(.js) .brand {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  html:not(.js) .currency-select {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    margin-left: 0;
+  }
+
+  .nav-fallback-toggle {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  html:not(.js) .site-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }
 
 /* justify-self stops the grid from stretching it across its whole column */
@@ -679,8 +751,8 @@ img {
   /* The browser draws its own arrow now, so drop the data-URI chevron */
   /* The button becomes a flex box in this mode, and its content sits at the
      top unless it is centred */
-  /* .js is needed to beat the display rule that shows the select. A flex box
-     keeps the name and the arrow on one row. */
+  /* A flex box keeps the name and the arrow on one row in both layouts. */
+  .currency-select,
   .js .currency-select {
     display: inline-flex;
     align-items: center;
