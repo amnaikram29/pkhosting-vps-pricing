@@ -83,11 +83,11 @@ their markup, class names, code or assets.
 - [x] 0 setup
 - [x] 1 base + header
 - [x] 2 hero
-- [ ] 3 pricing cards (static)
+- [x] 3 cards (done)
+- [ ] 3b plans behaviour
+- [ ] 3c currency selector (the brief requires it; maths already done in 3b)
 - [ ] 4 comparison table
 - [ ] 5 faq
 - [ ] 6 footer
-- [ ] 7 pricing logic + tests, then toggle and currency wiring
-- [ ] 8 persistence + a11y + no-JS check
-- [ ] 9 verification + screenshots + lighthouse
-- [ ] 10 NOTES.md + README
+- [ ] 7 no-JS + a11y pass + verification + screenshots + lighthouse
+- [ ] 8 NOTES.md + README

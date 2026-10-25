@@ -86,7 +86,7 @@
         <div class="controls js-only">
           <div class="toggle" role="group" aria-label="Billing period">
             <button type="button" data-period="monthly" aria-pressed="true">Monthly</button>
-            <button type="button" data-period="annual" aria-pressed="false">Annually</button>
+            <button type="button" data-period="annual" aria-pressed="false">Annually <span class="tab-chip"></span></button>
           </div>
         </div>
 
@@ -98,8 +98,7 @@
             <h3 class="card-title" id="plan-starter">Starter</h3>
             <p class="card-desc">For small sites, side projects &amp; bots</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">2,400</span><span class="per">/month</span></p>
-            <p class="billed">Rs 24,000/yr (10× monthly) if billed annually · Recurring rate; notified price changes may apply</p>
-            <p class="badge"></p>
+            <p class="billed">Billed monthly · or Rs 24,000/yr (10× monthly) if billed annually</p>
             <button type="button" class="btn btn-card">Choose Starter</button>
             <hr class="divider">
             <ul class="features">
@@ -117,8 +116,7 @@
             <h3 class="card-title" id="plan-growth">Growth</h3>
             <p class="card-desc">For busy websites &amp; database-backed apps</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">4,800</span><span class="per">/month</span></p>
-            <p class="billed">Rs 48,000/yr (10× monthly) if billed annually · Recurring rate; notified price changes may apply</p>
-            <p class="badge"></p>
+            <p class="billed">Billed monthly · or Rs 48,000/yr (10× monthly) if billed annually</p>
             <button type="button" class="btn btn-card">Choose Growth</button>
             <hr class="divider">
             <ul class="features">
@@ -135,8 +133,7 @@
             <h3 class="card-title" id="plan-scale">Scale</h3>
             <p class="card-desc">For several apps with steady traffic</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">9,600</span><span class="per">/month</span></p>
-            <p class="billed">Rs 96,000/yr (10× monthly) if billed annually · Recurring rate; notified price changes may apply</p>
-            <p class="badge"></p>
+            <p class="billed">Billed monthly · or Rs 96,000/yr (10× monthly) if billed annually</p>
             <button type="button" class="btn btn-card">Choose Scale</button>
             <hr class="divider">
             <ul class="features">
@@ -153,8 +150,7 @@
             <h3 class="card-title" id="plan-dedicated">Dedicated Core</h3>
             <p class="card-desc">For workloads that need cores nobody else shares</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">19,500</span><span class="per">/month</span></p>
-            <p class="billed">Rs 195,000/yr (10× monthly) if billed annually · Recurring rate; notified price changes may apply</p>
-            <p class="badge"></p>
+            <p class="billed">Billed monthly · or Rs 195,000/yr (10× monthly) if billed annually</p>
             <button type="button" class="btn btn-card">Choose Dedicated Core</button>
             <hr class="divider">
             <ul class="features">
@@ -171,6 +167,7 @@
   </main>
 
   <footer></footer>
+  <script src="js/pricing.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
