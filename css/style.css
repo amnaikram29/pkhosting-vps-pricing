@@ -447,6 +447,10 @@ img {
   list-style: none;
 }
 
+.nav-links {
+  display: contents;
+}
+
 /* Drawer: one link per row with a divider, like a stacked list */
 .js .nav-list {
   flex-direction: column;
@@ -563,15 +567,40 @@ img {
     color: var(--ink-600);
   }
 
-  /* ...and auto margins on the first and fourth items (the text links) split
-     the leftover space equally, which centres them. The CTA is the fifth item
-     and stays at the right edge. Relies on the DOM order brand, 4 links, CTA. */
-  .nav-list li:first-child {
+  /* Centre the links independently of the different widths on either side. */
+  .site-header-inner {
+    position: relative;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .js .nav-cta {
     margin-left: auto;
   }
 
-  .nav-list li:nth-child(4) {
-    margin-right: auto;
+  /* Share the desktop flex row so the fallback select can sit before the CTA. */
+  html:not(.js) .site-nav,
+  html:not(.js) .nav-list {
+    display: contents;
+  }
+
+  html:not(.js) .currency-select {
+    order: 1;
+    margin-left: auto;
+  }
+
+  html:not(.js) .nav-cta {
+    order: 2;
   }
 }
 
