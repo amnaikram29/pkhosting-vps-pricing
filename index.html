@@ -14,7 +14,7 @@
   <header class="site-header">
     <!-- Hidden without JS, because the select needs JS to do anything -->
     <div class="topbar js-only">
-      <div class="container topbar-inner">
+      <div class="container topbar-inner" id="topbar-inner">
         <label class="sr-only" for="currency">Currency</label>
         <select class="topbar-select" id="currency">
           <option value="PKR" data-country="PK" data-symbol="Rs">PKR</option>
@@ -57,7 +57,9 @@
             <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </a></li>
+          </a>
+          <!-- Empty slot: js/app.js moves the currency select in here while the hamburger shows -->
+          <div class="nav-currency" id="nav-currency"></div></li>
         </ul>
       </nav>
     </div>

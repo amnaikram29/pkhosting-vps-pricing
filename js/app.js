@@ -38,8 +38,9 @@ document.addEventListener("keydown", function (event) {
   }
 
   if (event.key === "Tab") {
-    // While the drawer is open, Tab only cycles through the toggle and the links
-    var focusable = [navToggle].concat(Array.from(siteNav.querySelectorAll("a")));
+    // While the drawer is open, Tab only cycles through the toggle, the links
+    // and the currency select
+    var focusable = [navToggle].concat(Array.from(siteNav.querySelectorAll("a, select")));
     var first = focusable[0];
     var last = focusable[focusable.length - 1];
 
@@ -53,9 +54,19 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+// One select, two homes: the top bar on desktop, the drawer while the hamburger
+// shows. Moving the same element keeps its id, listeners and value.
+function placeCurrencySelect() {
+  var home = desktopQuery.matches ? "topbar-inner" : "nav-currency";
+  document.getElementById(home).appendChild(document.getElementById("currency"));
+}
+
+placeCurrencySelect();
+
 // If the window grows to desktop width while open, the drawer is no longer
 // a drawer, so reset the state (and the scroll lock with it)
 desktopQuery.addEventListener("change", function (event) {
+  placeCurrencySelect();
   if (event.matches) {
     setNavOpen(false);
   }
@@ -187,7 +198,11 @@ desktopQuery.addEventListener("change", function (event) {
   // The top bar scrolls out of view, and the browser cannot scroll it back by
   // itself. So when keyboard focus lands on the select, go back to the top.
   // Waiting one frame lets the browser finish its own scrolling first.
+  // Inside the drawer the header is pinned, so there is nothing to scroll back to.
   currencySelect.addEventListener("focus", function () {
+    if (isNavOpen()) {
+      return;
+    }
     requestAnimationFrame(function () {
       window.scrollTo(0, 0);
     });

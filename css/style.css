@@ -245,12 +245,11 @@ img {
 /* Header stays pinned while the drawer is open, so the close button is
    always reachable. Without JS there is no drawer, so no need to pin it
    (see the 768px rule). */
-/* The negative top is the trick: the header sticks once its top is 46px above
-   the window, which is exactly when the top bar has scrolled out of view. So
-   the bar leaves with the page and the main row stays pinned. */
+/* The top bar only shows from 1200px (see below), so the header pins at 0
+   until then. */
 .js .site-header {
   position: sticky;
-  top: calc(-1 * var(--topbar-h));
+  top: 0;
   z-index: 50;
 }
 
@@ -330,8 +329,8 @@ img {
   top: 100%;
   left: 0;
   right: 0;
-  height: calc(100vh - var(--header-h) - var(--topbar-h));
-  height: calc(100dvh - var(--header-h) - var(--topbar-h));
+  height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
   overflow-y: auto;
   padding: 0 var(--space-4);
   background: #fff;
@@ -430,6 +429,11 @@ img {
 
 /* The call-to-action row gets space around the button instead of a divider */
 .js .nav-cta {
+  display: flex;
+  align-items: center;
+  /* Button on the left, currency select on the right */
+  justify-content: space-between;
+  gap: var(--space-3);
   padding: var(--space-4) 0;
   border-bottom: 0;
 }
@@ -607,7 +611,8 @@ img {
 /* Must come after .js-only: that rule makes things flex, which would stop the
    container inside from centring. */
 .js .topbar {
-  display: block;
+  /* Hidden while the hamburger shows: the select lives in the drawer then */
+  display: none;
   /* 30px select + 8px above and below = --topbar-h */
   padding: var(--space-2) 0;
   background: var(--ink-950);
@@ -616,9 +621,30 @@ img {
   min-height: var(--topbar-h);
 }
 
+/* Same breakpoint as the inline nav above and desktopQuery in js/app.js */
+@media (min-width: 1200px) {
+  .js .topbar {
+    display: block;
+  }
+
+  /* The negative top is the trick: the header sticks once its top is 46px
+     above the window, which is exactly when the top bar has scrolled out of
+     view. So the bar leaves with the page and the main row stays pinned. */
+  .js .site-header {
+    top: calc(-1 * var(--topbar-h));
+  }
+}
+
+/* Sits at the right end of the Get Started row; empty (and invisible) on desktop */
+.nav-currency:empty {
+  display: none;
+}
+
 .topbar-inner {
   display: flex;
   align-items: center;
+  /* Push the select to the right edge at every screen size */
+  justify-content: flex-end;
 }
 
 /* The chevron is a data URI, so it needs no file and no request */
