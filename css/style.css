@@ -1128,3 +1128,88 @@ img {
     padding: 96px 0;
   }
 }
+
+/* ---------- FAQ ---------- */
+/* Half-strength ink-50 over white, so it alternates with the white table section */
+.faq {
+  padding: var(--space-8) 0;
+  background: color-mix(in srgb, var(--ink-50) 50%, #fff);
+}
+
+.faq-list {
+  max-width: 48rem;
+  margin: var(--space-6) auto 0;
+}
+
+/* overflow hidden keeps the summary hover fill inside the rounded corners */
+.faq-item {
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-md);
+  background: #fff;
+  overflow: hidden;
+}
+
+.faq-item + .faq-item {
+  margin-top: var(--space-3);
+}
+
+/* Right padding leaves room for the +/- marker so long questions wrap before it */
+.faq-item summary {
+  position: relative;
+  min-height: 44px;
+  padding: var(--space-4) 48px var(--space-4) 20px;
+  color: var(--ink-900);
+  font-weight: 600;
+  overflow-wrap: break-word;
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Decorative marker drawn in CSS; the open state is announced by the browser */
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  color: var(--brand-700);
+  font-size: 1.25rem;
+}
+
+.faq-item[open] summary::after {
+  content: "\2212";
+}
+
+.faq-item summary:hover {
+  background: var(--ink-50);
+}
+
+/* Negative offset keeps the ring inside the box, so overflow hidden does not clip it */
+.faq-item summary:focus-visible {
+  outline-offset: -2px;
+}
+
+.faq-item p {
+  max-width: 42rem;
+  margin: 0;
+  padding: 0 20px var(--space-4);
+  color: var(--ink-600);
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 640px) {
+  .faq {
+    padding: 80px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .faq {
+    padding: 96px 0;
+  }
+}
