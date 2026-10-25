@@ -37,7 +37,7 @@ Tested: Chrome and Firefox (desktop). Not tested: Safari and real mobile devices
 
 ## Lighthouse
 
-Report: [docs/lighthouse-report.html](docs/lighthouse-report.html). Lighthouse 13.4.1, mobile, simulated throttling, run against a local server (`http://localhost:3000/`) on 2026-10-25 at 18:26 UTC.
+Report: [docs/lighthouse-report.html](docs/lighthouse-report.html). Lighthouse 13.4.1, mobile, simulated throttling, run against a local server (`http://localhost:3000/`) on 2026-10-25 at 18:43 UTC.
 
 | Category | Score |
 | --- | --- |
@@ -46,7 +46,7 @@ Report: [docs/lighthouse-report.html](docs/lighthouse-report.html). Lighthouse 1
 | Best practices | 100 |
 | SEO | 100 |
 
-FCP 0.8 s, LCP 1.0 s, TBT 80 ms, CLS 0.013.
+FCP 1.1 s, LCP 1.1 s, TBT 0 ms, CLS 0.
 
 Page weight: index.html, css/, js/ and assets/ total 114 KB on disk (the limit is 300 KB). Lighthouse measured 72 KiB transferred.
 
@@ -54,7 +54,6 @@ Page weight: index.html, css/, js/ and assets/ total 114 KB on disk (the limit i
 
 - The "Choose ..." buttons are inert. The brief did not ask for checkout or sign-up, so they are visual only.
 - No tests cover `js/app.js` (the DOM and localStorage code).
-- CLS is 0.013, not 0. The report attributes all of it to the billing toggle, which resizes when JS fills the "Save up to 17%" chip.
 - No screen reader was used for testing.
 - The two payment logos are 256x256 PNGs shown at 28x28. Resizing them would save about 50 KB.
 

@@ -84,10 +84,10 @@ their markup, class names, code or assets.
 - [x] 1 base + header
 - [x] 2 hero
 - [x] 3 cards (done)
-- [ ] 3b plans behaviour
-- [ ] 3c currency selector (the brief requires it; maths already done in 3b)
-- [ ] 4 comparison table
-- [ ] 5 faq
-- [ ] 6 footer
-- [ ] 7 no-JS + a11y pass + verification + screenshots + lighthouse
-- [ ] 8 NOTES.md + README
+- [x] 3b plans behaviour
+- [x] 3c currency selector (the brief requires it; maths already done in 3b)
+- [x] 4 comparison table
+- [x] 5 faq
+- [x] 6 footer
+- [x] 7 no-JS + a11y pass + verification + screenshots + lighthouse
+- [x] 8 NOTES.md + README
