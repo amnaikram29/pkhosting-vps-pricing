@@ -51,7 +51,7 @@
         <ul class="nav-list">
           <li><a class="nav-link" href="#plans">Plans</a></li>
           <li><a class="nav-link" href="#compare">Compare</a></li>
-          <li><a class="nav-link" href="#faq">FAQ</a></li>
+          <li><a class="nav-link" href="#faq">FAQs</a></li>
           <li><a class="nav-link" href="#payments">Payments</a></li>
           <li class="nav-cta"><a class="btn btn-primary" href="#plans">Get Started
             <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -288,7 +288,7 @@
     <section class="faq" id="faq" aria-labelledby="faq-h">
       <div class="container">
         <div class="section-intro">
-          <p class="eyebrow">FAQ</p>
+          <p class="eyebrow">FAQs</p>
           <h2 class="section-title" id="faq-h">Setup, billing &amp; support</h2>
           <p class="section-lead">Quick answers on billing, plan changes, currency,
           refunds and root access.</p>
@@ -321,7 +321,76 @@
     </section>
   </main>
 
-  <footer></footer>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+      <div class="footer-brand">
+        <!-- Same wordmark as the header, but a span: it is not a link, so no tab stop -->
+        <span class="brand brand-light" role="img" aria-label="PKHosting">
+          <span class="brand-text" aria-hidden="true">PK</span>
+          <svg class="brand-icon" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
+            <rect x="5" y="5" width="34" height="9.5" rx="2.2" fill="#e9e7e4" stroke="#d7d4d0" stroke-width="0.6"/>
+            <rect x="25.5" y="8" width="3.4" height="3.4" rx="0.8" fill="#57514d"/>
+            <rect x="30.5" y="8" width="3.4" height="3.4" rx="0.8" fill="#d8232a"/>
+            <rect x="5" y="17.25" width="34" height="9.5" rx="2.2" fill="#1aa54a"/>
+            <rect x="25.5" y="20.25" width="3.4" height="3.4" rx="0.8" fill="#fff"/>
+            <rect x="30.5" y="20.25" width="3.4" height="3.4" rx="0.8" fill="#fff"/>
+            <rect x="5" y="29.5" width="34" height="9.5" rx="2.2" fill="#e9e7e4" stroke="#d7d4d0" stroke-width="0.6"/>
+            <rect x="25.5" y="32.5" width="3.4" height="3.4" rx="0.8" fill="#57514d"/>
+            <rect x="30.5" y="32.5" width="3.4" height="3.4" rx="0.8" fill="#57514d"/>
+          </svg>
+          <span class="brand-text" aria-hidden="true">Host<span class="brand-i">&#305;</span>ng</span>
+        </span>
+        <p class="footer-tagline">PKHosting offers VPS plans priced in rupees, with simple monthly or annual billing. Pick a plan, compare what each one includes and see the price in PKR, USD or GBP.</p>
+      </div>
+
+      <!-- Real links to sections that exist on this page -->
+      <nav class="footer-nav" aria-labelledby="footer-nav-h">
+        <h2 class="footer-heading" id="footer-nav-h">Pricing</h2>
+        <ul class="footer-links">
+          <li><a class="footer-link" href="#plans">Plans</a></li>
+          <li><a class="footer-link" href="#compare">Compare plans</a></li>
+          <li><a class="footer-link" href="#faq">FAQs</a></li>
+          <li><a class="footer-link" href="#payments">Ways to pay</a></li>
+        </ul>
+      </nav>
+
+      <section class="payments" id="payments" aria-labelledby="payments-h">
+        <h2 class="footer-heading" id="payments-h">Ways to pay</h2>
+        <!-- Plain text chips, not links or buttons. The icons are decorative. -->
+        <ul class="pay-list">
+          <li class="pay-item">
+            <svg class="pay-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M2 8 10 3l8 5z"/>
+              <path d="M4 9v6M8 9v6M12 9v6M16 9v6M2 17h16"/>
+            </svg>
+            Bank transfer (IBFT / Raast)
+          </li>
+          <li class="pay-item">
+            <img class="pay-logo" src="assets/jazzcash-com-pk-logo.png" alt="" width="28" height="28">
+            JazzCash
+          </li>
+          <li class="pay-item">
+            <img class="pay-logo" src="assets/easypaisa-com-pk-logo.png" alt="" width="28" height="28">
+            Easypaisa
+          </li>
+          <li class="pay-item">
+            <svg class="pay-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <rect x="2" y="4" width="16" height="12" rx="2"/>
+              <path d="M2 8h16M5 13h4"/>
+            </svg>
+            Debit or credit card
+          </li>
+        </ul>
+      </section>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-legal">&copy; 2026 PKHosting. All rights reserved.</p>
+        <p class="footer-legal">Quality-crafted web hosting, in theory. A fictional product made for an assessment, not a registered company.</p>
+      </div>
+    </div>
+  </footer>
   <script src="js/pricing.js"></script>
   <script src="js/app.js"></script>
 </body>
