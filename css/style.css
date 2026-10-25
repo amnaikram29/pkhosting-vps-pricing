@@ -1037,6 +1037,12 @@ img {
   .cards {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  /* Reserve two lines so the prices and buttons line up across the row.
+     Only needed here: in one column the cards are stacked, nothing to align. */
+  .card-desc {
+    min-height: calc(2 * var(--text-sm) * 1.55);
+  }
 }
 
 /* ---------- Compare ---------- */
