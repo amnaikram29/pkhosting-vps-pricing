@@ -43,9 +43,9 @@
   /* Fixed so the mobile drawer knows how much room the header takes */
   --header-h: 72px;
   --topbar-h: 46px;
-  /* Topbar + header + 1px border, plus a little room so anchored headings
-     do not touch the header */
-  --header-offset: 8rem;
+  /* Pinned header + 1px border, plus a little room so anchored headings do
+     not touch it. The top bar is not counted: it scrolls away. */
+  --header-offset: 5rem;
 }
 
 /* ---------- Reset ---------- */
@@ -245,20 +245,46 @@ img {
 /* Header stays pinned while the drawer is open, so the close button is
    always reachable. Without JS there is no drawer, so no need to pin it
    (see the 768px rule). */
+/* The negative top is the trick: the header sticks once its top is 46px above
+   the window, which is exactly when the top bar has scrolled out of view. So
+   the bar leaves with the page and the main row stays pinned. */
 .js .site-header {
   position: sticky;
-  top: 0;
+  top: calc(-1 * var(--topbar-h));
   z-index: 50;
+}
+
+/* Glass look once the page has scrolled. Only colour, blur and shadow change,
+   so the header height stays the same and nothing shifts. */
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.75);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(18, 15, 13, 0.08);
+}
+
+/* Without blur support, a see-through header would let text show through
+   and hurt readability, so stay almost solid */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header {
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
 }
 
 .js {
   scroll-padding-top: var(--header-offset);
 }
 
-/* Things inside the sticky header are always on screen. Without this, the
-   scroll padding above makes the browser think a focused header control is
-   hidden and scroll the page up (it happened when opening the currency list). */
-.site-header :focus {
+/* The main row is always on screen. Without this, the scroll padding above
+   makes the browser think a focused header control is hidden and scroll the
+   page up. */
+.site-header-inner :focus {
   scroll-margin-top: calc(-1 * var(--header-offset));
 }
 

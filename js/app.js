@@ -61,6 +61,21 @@ desktopQuery.addEventListener("change", function (event) {
   }
 });
 
+/* ---------- Header glass effect on scroll ---------- */
+(function () {
+  var header = document.querySelector(".site-header");
+
+  function updateHeader() {
+    // A few pixels of slack so the tiniest scroll does not flicker it
+    header.classList.toggle("is-scrolled", window.scrollY > 8);
+  }
+
+  // Passive: we never cancel the scroll, so the browser can keep it smooth
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  // Also run once now, in case the page reloads already scrolled down
+  updateHeader();
+})();
+
 /* ---------- Plans: billing toggle ---------- */
 (function () {
   var STORAGE_KEY = "pkh-vps-prefs";
@@ -167,6 +182,15 @@ desktopQuery.addEventListener("change", function (event) {
     render();
     save();
     announce();
+  });
+
+  // The top bar scrolls out of view, and the browser cannot scroll it back by
+  // itself. So when keyboard focus lands on the select, go back to the top.
+  // Waiting one frame lets the browser finish its own scrolling first.
+  currencySelect.addEventListener("focus", function () {
+    requestAnimationFrame(function () {
+      window.scrollTo(0, 0);
+    });
   });
 
   // The chip's percent comes from the same maths as the prices, never typed.
