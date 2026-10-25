@@ -27,6 +27,9 @@ Timebox is 5-6 hours total, so keep everything simple.
 - PKR shown as whole numbers; USD and GBP with two decimals. Convert from PKR at display
   time, round only when formatting.
 - Single source of truth: each card carries data-monthly in the HTML; JS reads it.
+- The price is split into two spans, `.currency` (the symbol) and `.amount` (the number),
+  so the symbol can be styled smaller. JS will later fill `.currency`, `.amount`, `.per`,
+  `.billed` and `.badge` on each card. `.badge` is empty in the HTML.
 
 ## 3. FILE STRUCTURE
 - index.html

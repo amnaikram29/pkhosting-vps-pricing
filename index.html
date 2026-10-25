@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PKHosting VPS Hosting</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Runs before first paint so the CSS knows JS is on and the drawer never flashes -->
+  <!-- Runs before the stylesheet loads so the CSS knows JS is on and nothing flashes -->
   <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to main content</a>
@@ -69,6 +69,98 @@
               <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="plans" id="plans" aria-labelledby="plans-h">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">VPS hosting</p>
+          <h2 class="section-title" id="plans-h">Pick a plan</h2>
+          <p class="section-lead">Four NVMe plans on a fictional PKHosting VPS line.
+          Prices are invented. Pay monthly, or pay for 10 months and get 12.</p>
+        </div>
+
+        <!-- Hidden without JS, because the buttons need JS to do anything -->
+        <div class="controls js-only">
+          <div class="toggle" role="group" aria-label="Billing period">
+            <button type="button" data-period="monthly" aria-pressed="true">Monthly</button>
+            <button type="button" data-period="annual" aria-pressed="false">Annually</button>
+          </div>
+        </div>
+
+        <p id="status" class="sr-only" role="status"></p>
+
+        <div class="cards">
+          <article class="card" data-monthly="2400" aria-labelledby="plan-starter">
+            <h3 class="card-title" id="plan-starter">Starter</h3>
+            <p class="card-desc">One small site or bot.</p>
+            <p class="price"><span class="currency">Rs</span><span class="amount">2,400</span><span class="per">/month</span></p>
+            <p class="billed">Billed monthly</p>
+            <p class="badge"></p>
+            <button type="button" class="btn btn-card">Choose Starter</button>
+            <hr class="divider">
+            <ul class="features">
+              <li>1 shared vCPU</li>
+              <li>2 GB RAM</li>
+              <li>40 GB NVMe storage</li>
+              <li>2 TB monthly transfer</li>
+              <li>24 hour support response</li>
+            </ul>
+          </article>
+
+          <article class="card card-featured" data-monthly="4800" aria-labelledby="plan-growth">
+            <p class="ribbon">Most popular</p>
+            <h3 class="card-title" id="plan-growth">Growth</h3>
+            <p class="card-desc">A busy site and a database.</p>
+            <p class="price"><span class="currency">Rs</span><span class="amount">4,800</span><span class="per">/month</span></p>
+            <p class="billed">Billed monthly</p>
+            <p class="badge"></p>
+            <button type="button" class="btn btn-card">Choose Growth</button>
+            <hr class="divider">
+            <ul class="features">
+              <li>2 shared vCPU</li>
+              <li>4 GB RAM</li>
+              <li>80 GB NVMe storage</li>
+              <li>4 TB monthly transfer</li>
+              <li>8 hour support response</li>
+            </ul>
+          </article>
+
+          <article class="card" data-monthly="9600" aria-labelledby="plan-scale">
+            <h3 class="card-title" id="plan-scale">Scale</h3>
+            <p class="card-desc">Several apps, steady traffic.</p>
+            <p class="price"><span class="currency">Rs</span><span class="amount">9,600</span><span class="per">/month</span></p>
+            <p class="billed">Billed monthly</p>
+            <p class="badge"></p>
+            <button type="button" class="btn btn-card">Choose Scale</button>
+            <hr class="divider">
+            <ul class="features">
+              <li>4 shared vCPU</li>
+              <li>8 GB RAM</li>
+              <li>160 GB NVMe storage</li>
+              <li>8 TB monthly transfer</li>
+              <li>4 hour support response</li>
+            </ul>
+          </article>
+
+          <article class="card" data-monthly="19500" aria-labelledby="plan-dedicated">
+            <h3 class="card-title" id="plan-dedicated">Dedicated Core</h3>
+            <p class="card-desc">Cores that nobody else shares.</p>
+            <p class="price"><span class="currency">Rs</span><span class="amount">19,500</span><span class="per">/month</span></p>
+            <p class="billed">Billed monthly</p>
+            <p class="badge"></p>
+            <button type="button" class="btn btn-card">Choose Dedicated Core</button>
+            <hr class="divider">
+            <ul class="features">
+              <li>4 dedicated vCPU</li>
+              <li>16 GB RAM</li>
+              <li>320 GB NVMe storage</li>
+              <li>Unmetered transfer</li>
+              <li>1 hour support response</li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>

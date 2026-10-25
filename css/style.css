@@ -29,6 +29,10 @@
   --space-7: 48px;
   --space-8: 64px;
 
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -495,5 +499,338 @@ img {
   .hero-title {
     font-size: 3rem;
     line-height: 1;
+  }
+}
+
+/* ---------- Plans ---------- */
+.plans {
+  padding: var(--space-8) 0;
+  /* 50% ink-50 over white, as in the reference */
+  background: rgba(247, 246, 244, 0.5);
+}
+
+.section-intro {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Small pill above the heading. brand-700 on brand-50 is about 5.8:1 */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid rgba(26, 165, 74, 0.25);
+  border-radius: 999px;
+  background: var(--brand-50);
+  color: var(--brand-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-500);
+}
+
+.section-title {
+  margin: var(--space-4) 0 0;
+  color: var(--ink-900);
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.section-lead {
+  margin: var(--space-4) 0 0;
+  color: var(--ink-500);
+  font-size: var(--text-base);
+  line-height: 1.625;
+}
+
+/* Without JS the controls would do nothing, so they stay hidden */
+.js-only {
+  display: none;
+}
+
+.js .js-only {
+  display: flex;
+}
+
+.controls {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4) var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: var(--ink-100);
+}
+
+.toggle button {
+  min-height: 44px;
+  padding: var(--space-2) 20px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-600);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toggle button[aria-pressed="true"] {
+  background: #fff;
+  color: var(--ink-900);
+  box-shadow: 0 1px 3px rgba(28, 24, 21, 0.18);
+}
+
+/* minmax(0, 1fr) lets a column shrink below its content, so a long price
+   can never push the page wider than the screen */
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-7);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--ink-100);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: 0 10px 28px -14px rgba(28, 24, 21, 0.16);
+}
+
+.card-featured {
+  border-color: var(--ink-900);
+  background: var(--ink-900);
+  color: #fff;
+  box-shadow: 0 18px 48px -18px rgba(28, 24, 21, 0.22);
+}
+
+/* Sits half over the top edge. ink-950 text is 5.9:1 on brand-500 */
+.ribbon {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin: 0;
+  padding: var(--space-1) 14px;
+  border-radius: 999px;
+  background: var(--brand-500);
+  color: var(--ink-950);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.card-title {
+  margin: 0;
+  color: var(--ink-900);
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.card-featured .card-title {
+  color: #fff;
+}
+
+.card-desc {
+  margin: var(--space-1) 0 0;
+  color: var(--ink-600);
+  font-size: var(--text-sm);
+}
+
+.card-featured .card-desc,
+.card-featured .per,
+.card-featured .billed,
+.card-featured .features li {
+  color: var(--ink-200);
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1);
+  margin: 20px 0 0;
+}
+
+.currency {
+  color: var(--brand-700);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+/* brand-700 is too dark on ink-900, brand-500 is 5.5:1 there */
+.card-featured .currency {
+  color: var(--brand-500);
+}
+
+.amount {
+  color: var(--ink-900);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-featured .amount {
+  color: #fff;
+}
+
+.per {
+  color: var(--ink-600);
+  font-size: var(--text-sm);
+}
+
+.billed {
+  margin: var(--space-2) 0 0;
+  color: var(--ink-600);
+  font-size: var(--text-sm);
+}
+
+/* Empty now. The min-height equals one filled badge (line 1.55 x 12px,
+   plus 2px padding and 1px border top and bottom), so filling it later
+   moves nothing. */
+.badge {
+  min-height: calc(0.75rem * 1.55 + 6px);
+  margin: var(--space-2) 0 0;
+}
+
+.badge:not(:empty) {
+  width: fit-content;
+  padding: 2px 10px;
+  border: 1px solid rgba(216, 35, 42, 0.3);
+  border-radius: 999px;
+  /* White, not a red tint: accent-500 on an 8% tint is only 4.4:1 */
+  background: #fff;
+  color: var(--accent-500);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.btn-card {
+  margin-top: var(--space-5);
+  background: var(--brand-700);
+  color: #fff;
+}
+
+.btn-card:hover {
+  background: #0f5a2a;
+}
+
+.card-featured .btn-card {
+  background: var(--brand-500);
+  color: var(--ink-950);
+}
+
+.card-featured .btn-card:hover {
+  background: #16a043;
+}
+
+.divider {
+  height: 1px;
+  margin: var(--space-5) 0;
+  border: 0;
+  background: var(--ink-100);
+}
+
+.card-featured .divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* flex-grow makes the list fill the card, so all cards end at one height */
+.features {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  display: flex;
+  gap: 10px;
+  color: var(--ink-600);
+  font-size: var(--text-sm);
+}
+
+/* The check is drawn here so the HTML stays plain text. A data: URI is not
+   a network request. %23 is an encoded # */
+.features li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--brand-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.4 2.4 4.6-5' fill='none' stroke='%23138a3d' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+}
+
+.card-featured .features li::before {
+  background: rgba(26, 165, 74, 0.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.4 2.4 4.6-5' fill='none' stroke='%231aa54a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+}
+
+@media (min-width: 640px) {
+  .plans {
+    padding: 80px 0;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+
+  .section-lead {
+    font-size: var(--text-lg);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .plans {
+    padding: 96px 0;
+  }
+}
+
+/* Four columns, not three, so there is never a lone card on the last row */
+@media (min-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .card {
+    padding: var(--space-5);
+  }
+
+  .amount {
+    font-size: 2rem;
   }
 }
