@@ -1040,11 +1040,10 @@ img {
   }
 }
 
-/* Three columns: the fourth card wraps onto its own row. That was chosen on
-   purpose; with three columns the cards stay wide enough for the price text. */
+/* Four columns: all plans sit in one row so they can be compared side by side */
 @media (min-width: 1200px) {
   .cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1111,19 +1110,6 @@ img {
 
 .table td {
   color: var(--ink-600);
-}
-
-/* Small bold green text link, like the reference. brand-700 is 6.4:1 on
-   white and 5.8:1 on brand-50. */
-.table-link {
-  color: var(--brand-700);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.table-link:hover {
-  text-decoration: underline;
 }
 
 /* Borders and a light fill mark the Growth column without extra markup.
