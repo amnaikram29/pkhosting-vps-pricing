@@ -202,7 +202,7 @@ desktopQuery.addEventListener("change", function (event) {
   // The chip's percent comes from the same maths as the prices, never typed.
   // It is not aria-hidden: "Annually Save 17%" is useful in the button's name.
   function showSavingsChip() {
-    document.querySelector(".chip").textContent = "Save " + Pricing.getSavingsPercent() + "%";
+    document.querySelector(".chip").textContent = "Save up to " + Pricing.getSavingsPercent() + "%";
   }
 
   load();

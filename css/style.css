@@ -792,6 +792,7 @@ img {
   border-radius: 999px;
   background: color-mix(in srgb, var(--accent-500) 10%, #fff);
   color: color-mix(in srgb, var(--accent-500) 75%, var(--ink-950));
+  border: 1px solid currentColor;
   font-size: 0.75rem;
   font-weight: 700;
 }
