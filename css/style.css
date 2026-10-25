@@ -870,7 +870,11 @@ img {
 
 /* Only this box scrolls sideways, never the page. The scrollbar is left at
    its default so it stays visible when the table overflows. */
+/* position: relative makes this box the anchor for the absolutely placed
+   .sr-only text inside the table. Without it that text is anchored to the
+   page, ignores this box's clipping, and widens the whole page. */
 .table-scroll {
+  position: relative;
   max-width: 100%;
   margin-top: var(--space-6);
   overflow-x: auto;
@@ -929,22 +933,7 @@ img {
   text-decoration: underline;
 }
 
-/* Row labels stay in view while the table scrolls. The background must be
-   opaque or the cells sliding underneath show through. There is no vertical
-   divider on purpose, to match the reference. */
-.table th:first-child {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background: #fff;
-}
-
-.table thead th:first-child {
-  background: var(--ink-50);
-}
-
-/* Borders and a light fill mark the Growth column without extra markup. The
-   cells are not positioned, so they never sit above the sticky first column.
+/* Borders and a light fill mark the Growth column without extra markup.
    The .table prefix lets it win over the td and thead th rules above. */
 .table .col-featured {
   border-right: 2px solid var(--brand-600);
