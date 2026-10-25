@@ -1,0 +1,499 @@
+/* ---------- Tokens ---------- */
+:root {
+  /* Brand palette (12 tokens) */
+  --brand-50: #e9f9ef;
+  --brand-500: #1aa54a;
+  --brand-600: #138a3d;
+  --brand-700: #126e33;
+  --ink-50: #f7f6f4;
+  --ink-100: #eceae7;
+  --ink-200: #dad6d1;
+  --ink-500: #6e655e;
+  --ink-600: #544c46;
+  --ink-900: #1c1815;
+  --ink-950: #120f0d;
+  --accent-500: #d8232a;
+
+  /* Not part of the palette: a blue focus ring is the one colour that
+     reaches 3:1 on both white (3.68) and the dark hero (4.79). */
+  --focus-ring: #3b82f6;
+
+  --font-body: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --container: 80rem;
+
+  /* Fixed so the mobile drawer knows how much room the header takes */
+  --header-h: 72px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink-600);
+  background: #fff;
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* ---------- Focus ---------- */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hidden off-screen until a keyboard user tabs to it */
+.skip {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 100;
+  padding: var(--space-3) var(--space-4);
+  background: var(--ink-900);
+  color: #fff;
+  border-radius: var(--radius-sm);
+}
+
+.skip:focus {
+  top: var(--space-2);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(18, 15, 13, 0.12), 0 4px 10px rgba(18, 15, 13, 0.1);
+  transition: background-color 0.15s;
+}
+
+/* brand-600 to match the reference button. It is about 4.4:1 with white text,
+   just under 4.5:1, so brand-700 is the safe choice if a checker flags it. */
+.btn-primary {
+  background: var(--brand-600);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--brand-700);
+}
+
+/* Inherits the text colour through currentColor; 1rem matches the 14px label */
+.btn-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Same green and white text as .btn-primary. brand-500 can't hold white text
+   (about 3:1), so the hero button uses brand-600 too. */
+.btn-accent {
+  background: var(--brand-600);
+  color: #fff;
+}
+
+.btn-accent:hover {
+  background: var(--brand-700);
+}
+
+/* The 40% white border is about 3.8:1 on plain ink-900, so it stays visible */
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  /* A shadow is invisible on the dark hero and just looks muddy */
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Hero ---------- */
+/* Everything is gradients, so there is no image to load and no layout shift.
+   Layers run top to bottom: green glow, red glow, slight lightening toward
+   the bottom, then the ink-900 base. */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-8) 0;
+  color: #fff;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(26, 165, 74, 0.25), transparent 60%),
+    radial-gradient(circle at 0% 0%, rgba(216, 35, 42, 0.12), transparent 58%),
+    linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.04)),
+    var(--ink-900);
+}
+
+/* Faint dot grid, drawn behind the content */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Lifts the text above the dot grid */
+.hero-inner {
+  position: relative;
+}
+
+/* Weight is 700, not 800: system fonts render 800 heavier than the reference font */
+.hero-title {
+  max-width: 48rem;
+  margin: var(--space-4) 0 0;
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.hero-lead {
+  max-width: 42rem;
+  margin: var(--space-4) 0 0;
+  color: var(--ink-200);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* ---------- Site header ---------- */
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--ink-200);
+}
+
+/* Mobile: brand on row 1, nav wraps onto row 2 */
+.site-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  min-height: var(--header-h);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+/* Header stays pinned while the drawer is open, so the close button is
+   always reachable. Without JS there is no drawer, so no need to pin it
+   (see the 768px rule). */
+.js .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.js {
+  scroll-padding-top: 5rem;
+}
+
+/* Hidden unless JS is running: without JS the links just show as a row */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--ink-900);
+  cursor: pointer;
+}
+
+.js .nav-toggle {
+  display: inline-flex;
+  margin-left: auto;
+}
+
+/* One button, two icons: aria-expanded decides which one shows */
+.nav-toggle-close,
+.nav-toggle[aria-expanded="true"] .nav-toggle-open {
+  display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-close {
+  display: block;
+}
+
+/* Stops the page behind the drawer from scrolling */
+.nav-open {
+  overflow: hidden;
+}
+
+/* Mobile drawer: a full-height panel under the header, hidden until opened */
+.js .site-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+  padding: 0 var(--space-4);
+  background: #fff;
+}
+
+.js .site-nav.is-open {
+  display: block;
+}
+
+/* ink-600 is a touch softer than ink-900 and still far above 4.5:1 on white */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  /* Keeps the tap target at 44px even though the text line is only 1.5rem */
+  min-height: 44px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink-600);
+  text-decoration: none;
+}
+
+/* Everything is sized in em so the icon and the dot scale with the text */
+.brand-icon {
+  width: 1.04em;
+  height: 1.04em;
+  margin: 0 0.12em;
+  flex-shrink: 0;
+}
+
+.brand-i {
+  position: relative;
+  display: inline-block;
+}
+
+/* The text uses a dotless i, so this square is the only dot. The red comes
+   from the accent token to match the red light on the server icon. */
+.brand-i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0.02em;
+  width: 0.21em;
+  height: 0.21em;
+  border-radius: 0.045em;
+  background: var(--accent-500);
+  transform: translateX(-50%);
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Drawer: one link per row with a divider, like a stacked list */
+.js .nav-list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.js .nav-list li {
+  border-bottom: 1px solid var(--ink-100);
+}
+
+/* Padding, not a fixed height, so the link still grows with zoomed text */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-1);
+  color: var(--ink-600);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.js .nav-link {
+  display: flex;
+  min-height: 56px;
+  padding: 0;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.nav-link:hover,
+.nav-link[aria-current] {
+  color: var(--ink-900);
+  text-decoration: underline;
+}
+
+/* The call-to-action row gets space around the button instead of a divider */
+.js .nav-cta {
+  padding: var(--space-4) 0;
+  border-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  /* Without JS there is no drawer, so pin the header only where one row fits */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  html {
+    scroll-padding-top: 5rem;
+  }
+}
+
+/* Keeps the drawer links lined up with the brand. Placed before the 1200px
+   block so that block can still reset the padding. */
+@media (min-width: 640px) {
+  .js .site-nav {
+    padding: 0 var(--space-5);
+  }
+}
+
+/* From here the links fit in one row, so the drawer turns back into a
+   normal inline nav. Every rule below undoes a drawer rule above.
+   1200px, not 1024px: a 1024px laptop keeps the hamburger, like the
+   reference. js/app.js uses the same number. */
+@media (min-width: 1200px) {
+  .site-header-inner {
+    flex-wrap: nowrap;
+  }
+
+  .js .nav-toggle {
+    display: none;
+  }
+
+  /* The nav takes all the space after the brand... */
+  .js .site-nav {
+    display: block;
+    position: static;
+    flex: 1;
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    background: none;
+  }
+
+  .js .nav-list {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .js .nav-list li,
+  .js .nav-cta {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .js .nav-link {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0 var(--space-1);
+    font-weight: 500;
+    color: var(--ink-600);
+  }
+
+  /* ...and auto margins on the first and fourth items (the text links) split
+     the leftover space equally, which centres them. The CTA is the fifth item
+     and stays at the right edge. Relies on the DOM order brand, 4 links, CTA. */
+  .nav-list li:first-child {
+    margin-left: auto;
+  }
+
+  .nav-list li:nth-child(4) {
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 96px 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 var(--space-5);
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+    line-height: 1.111;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-6);
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}

@@ -60,15 +60,31 @@ system-ui, "Segoe UI", Roboto, Arial, sans-serif.
 - Keep code simple, with short plain-language comments explaining why. I must explain every
   line in a live review, so no clever tricks or dense one-liners.
 - Prefer the smallest change that works. Don't add features not in the brief.
-- After each phase, give me 3 questions a reviewer might ask about it.
+- Build one page section at a time. Each slice does its HTML and its CSS together, so I
+  can open index.html and see the result. Never style a section that does not exist yet.
+  After each slice: (a) explain what you wrote in plain language, grouped by HTML then
+  CSS; (b) ask me 3 questions about it and wait for my answers; (c) tell me the commit
+  message to use. I commit myself.
 
-## 6. ROADMAP (tick off as we go)
+## 6. CSS RULES
+- Mobile-first, using min-width media queries.
+- One class per component, flat selectors (no ids, no deep nesting, no !important).
+- Spacing and type sizes come from a small set of custom properties.
+- Comments only for the "why".
+
+## 7. REFERENCE
+Screenshots from pkhosting.com are in ../reference/ for layout and mood only. Do not copy
+their markup, class names, code or assets.
+
+## 8. ROADMAP (tick off as we go)
 - [x] 0 setup
-- [ ] 1 semantic HTML
-- [ ] 2 responsive CSS
-- [ ] 3 pricing logic + toggle + currency
-- [ ] 4 persistence + a11y + no-JS
-- [ ] 5 verification
-- [ ] 6 screenshots + Lighthouse
-- [ ] 7 NOTES.md
-- [ ] 8 README
+- [x] 1 base + header
+- [x] 2 hero
+- [ ] 3 pricing cards (static)
+- [ ] 4 comparison table
+- [ ] 5 faq
+- [ ] 6 footer
+- [ ] 7 pricing logic + tests, then toggle and currency wiring
+- [ ] 8 persistence + a11y + no-JS check
+- [ ] 9 verification + screenshots + lighthouse
+- [ ] 10 NOTES.md + README
