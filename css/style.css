@@ -42,10 +42,10 @@
 
   /* Fixed so the mobile drawer knows how much room the header takes */
   --header-h: 72px;
-  --topbar-h: 52px;
+  --topbar-h: 46px;
   /* Topbar + header + 1px border, plus a little room so anchored headings
      do not touch the header */
-  --header-offset: 8.5rem;
+  --header-offset: 8rem;
 }
 
 /* ---------- Reset ---------- */
@@ -582,7 +582,7 @@ img {
    container inside from centring. */
 .js .topbar {
   display: block;
-  /* 36px select + 8px above and below = --topbar-h */
+  /* 30px select + 8px above and below = --topbar-h */
   padding: var(--space-2) 0;
   background: var(--ink-950);
   color: var(--ink-200);
@@ -598,8 +598,8 @@ img {
 /* The chevron is a data URI, so it needs no file and no request */
 .topbar-select {
   appearance: none;
-  /* Still well above the 24px WCAG minimum target size */
-  min-height: 36px;
+  /* Still above the 24px WCAG minimum target size */
+  min-height: 30px;
   padding: 0 var(--space-5) 0 var(--space-3);
   border: 1px solid var(--ink-500);
   border-radius: var(--radius-md);
