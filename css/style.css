@@ -588,19 +588,15 @@ img {
     margin-left: auto;
   }
 
-  /* Share the desktop flex row so the fallback select can sit before the CTA. */
+  /* Share the desktop flex row so the fallback CTA sits at the right. */
   html:not(.js) .site-nav,
   html:not(.js) .nav-list {
     display: contents;
   }
 
-  html:not(.js) .currency-select {
-    order: 1;
-    margin-left: auto;
-  }
-
   html:not(.js) .nav-cta {
     order: 2;
+    margin-left: auto;
   }
 }
 
@@ -695,15 +691,6 @@ img {
   display: flex;
 }
 
-/* Keep the currency visible in the fallback; JS moves it at each breakpoint. */
-.currency-select {
-  display: inline-block;
-}
-
-html:not(.js) .currency-select {
-  margin-left: auto;
-}
-
 /* Equal side columns keep the fallback logo centred while the menu is visible. */
 @media (width < 1200px) {
   html:not(.js) .site-header-inner {
@@ -714,13 +701,6 @@ html:not(.js) .currency-select {
   html:not(.js) .brand {
     grid-column: 2;
     grid-row: 1;
-  }
-
-  html:not(.js) .currency-select {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: start;
-    margin-left: 0;
   }
 
   .nav-fallback-toggle {
@@ -781,7 +761,6 @@ html:not(.js) .currency-select {
   /* The button becomes a flex box in this mode, and its content sits at the
      top unless it is centred */
   /* A flex box keeps the name and the arrow on one row in both layouts. */
-  .currency-select,
   .js .currency-select {
     display: inline-flex;
     align-items: center;

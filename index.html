@@ -9,12 +9,12 @@
   <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body id="top">
   <a class="skip" href="#main">Skip to main content</a>
 
   <header class="site-header">
     <div class="container site-header-inner">
-      <a class="brand" href="#" aria-label="PK Host&#305;ng">
+      <a class="brand" href="#top" aria-label="PK Host&#305;ng">
         <span class="brand-text" aria-hidden="true">PK</span>
         <svg class="brand-icon" viewBox="0 0 44 44" aria-hidden="true" focusable="false">
           <rect x="5" y="5" width="34" height="9.5" rx="2.2" fill="#e9e7e4" stroke="#d7d4d0" stroke-width="0.6"/>
@@ -30,7 +30,7 @@
         <span class="brand-text" aria-hidden="true">Host<span class="brand-i">&#305;</span>ng</span>
       </a>
       <label class="sr-only" for="currency">Currency</label>
-      <select class="currency-select" id="currency">
+      <select class="currency-select js-only" id="currency">
         <option value="PKR" data-country="PK" data-symbol="Rs">PKR</option>
         <option value="USD" data-country="US" data-symbol="$">USD</option>
         <option value="GBP" data-country="GB" data-symbol="£">GBP</option>
