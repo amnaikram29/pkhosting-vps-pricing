@@ -449,6 +449,9 @@ img {
 
 .nav-links {
   display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 /* Drawer: one link per row with a divider, like a stacked list */
@@ -579,9 +582,6 @@ img {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   .js .nav-cta {
