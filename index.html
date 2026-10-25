@@ -12,6 +12,17 @@
   <a class="skip" href="#main">Skip to main content</a>
 
   <header class="site-header">
+    <!-- Hidden without JS, because the select needs JS to do anything -->
+    <div class="topbar js-only">
+      <div class="container topbar-inner">
+        <label class="sr-only" for="currency">Currency</label>
+        <select class="topbar-select" id="currency">
+          <option value="PKR" data-country="PK" data-symbol="Rs">PKR</option>
+          <option value="USD" data-country="US" data-symbol="$">USD</option>
+          <option value="GBP" data-country="GB" data-symbol="£">GBP</option>
+        </select>
+      </div>
+    </div>
     <div class="container site-header-inner">
       <a class="brand" href="#" aria-label="PKHosting">
         <span class="brand-text" aria-hidden="true">PK</span>

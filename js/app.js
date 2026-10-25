@@ -68,8 +68,8 @@ desktopQuery.addEventListener("change", function (event) {
   var cards = document.querySelectorAll(".card");
   var periodButtons = document.querySelectorAll("[data-period]");
   var status = document.getElementById("status");
+  var currencySelect = document.getElementById("currency");
 
-  // Currency stays "PKR" until the selector exists, but render() already reads it
   var state = { period: "monthly", currency: "PKR" };
   var isFirstRender = true;
 
@@ -134,6 +134,8 @@ desktopQuery.addEventListener("change", function (event) {
       button.setAttribute("aria-pressed", String(button.dataset.period === state.period));
     });
 
+    currencySelect.value = state.currency;
+
     isFirstRender = false;
   }
 
@@ -154,6 +156,17 @@ desktopQuery.addEventListener("change", function (event) {
       save();
       announce();
     });
+  });
+
+  currencySelect.addEventListener("change", function () {
+    // The options are fixed in the HTML, but check anyway before trusting the value
+    if (!Pricing.isValidCurrency(currencySelect.value)) {
+      return;
+    }
+    state.currency = currencySelect.value;
+    render();
+    save();
+    announce();
   });
 
   // The chip's percent comes from the same maths as the prices, never typed.

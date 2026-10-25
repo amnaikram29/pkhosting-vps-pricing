@@ -42,6 +42,10 @@
 
   /* Fixed so the mobile drawer knows how much room the header takes */
   --header-h: 72px;
+  --topbar-h: 52px;
+  /* Topbar + header + 1px border, plus a little room so anchored headings
+     do not touch the header */
+  --header-offset: 8.5rem;
 }
 
 /* ---------- Reset ---------- */
@@ -248,7 +252,14 @@ img {
 }
 
 .js {
-  scroll-padding-top: 5rem;
+  scroll-padding-top: var(--header-offset);
+}
+
+/* Things inside the sticky header are always on screen. Without this, the
+   scroll padding above makes the browser think a focused header control is
+   hidden and scroll the page up (it happened when opening the currency list). */
+.site-header :focus {
+  scroll-margin-top: calc(-1 * var(--header-offset));
 }
 
 /* Hidden unless JS is running: without JS the links just show as a row */
@@ -293,8 +304,8 @@ img {
   top: 100%;
   left: 0;
   right: 0;
-  height: calc(100vh - var(--header-h));
-  height: calc(100dvh - var(--header-h));
+  height: calc(100vh - var(--header-h) - var(--topbar-h));
+  height: calc(100dvh - var(--header-h) - var(--topbar-h));
   overflow-y: auto;
   padding: 0 var(--space-4);
   background: #fff;
@@ -406,7 +417,7 @@ img {
   }
 
   html {
-    scroll-padding-top: 5rem;
+    scroll-padding-top: var(--header-offset);
   }
 }
 
@@ -564,6 +575,136 @@ img {
 
 .js .js-only {
   display: flex;
+}
+
+/* ---------- Top bar ---------- */
+/* Must come after .js-only: that rule makes things flex, which would stop the
+   container inside from centring. */
+.js .topbar {
+  display: block;
+  /* 36px select + 8px above and below = --topbar-h */
+  padding: var(--space-2) 0;
+  background: var(--ink-950);
+  color: var(--ink-200);
+  font-size: var(--text-sm);
+  min-height: var(--topbar-h);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+}
+
+/* The chevron is a data URI, so it needs no file and no request */
+.topbar-select {
+  appearance: none;
+  /* Still well above the 24px WCAG minimum target size */
+  min-height: 36px;
+  padding: 0 var(--space-5) 0 var(--space-3);
+  border: 1px solid var(--ink-500);
+  border-radius: var(--radius-md);
+  background: var(--ink-900) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23dad6d1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right var(--space-2) center / 12px 12px;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.topbar-select:hover {
+  border-color: var(--ink-200);
+}
+
+/* Inside the select, so the ring is not clipped by the top of the window */
+.topbar-select:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Newer Chrome and Edge let CSS style the opened list of a real <select>.
+   Other browsers skip this whole block and keep their normal dropdown, so
+   the control still works everywhere. The country code and symbol come from
+   data attributes on each <option> in the HTML. */
+@supports (appearance: base-select) {
+  .topbar-select,
+  .topbar-select::picker(select) {
+    appearance: base-select;
+  }
+
+  /* The browser draws its own arrow now, so drop the data-URI chevron */
+  /* The button becomes a flex box in this mode, and its content sits at the
+     top unless it is centred */
+  .topbar-select {
+    align-items: center;
+    padding: 0 var(--space-3);
+    background-image: none;
+  }
+
+  .topbar-select::picker-icon {
+    color: var(--ink-200);
+    transition: rotate 150ms;
+  }
+
+  .topbar-select:open::picker-icon {
+    rotate: 180deg;
+  }
+
+  .topbar-select::picker(select) {
+    min-width: 11rem;
+    margin-top: var(--space-2);
+    padding: var(--space-2);
+    border: 1px solid var(--ink-200);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(18 15 13 / 0.2);
+  }
+
+  .topbar-select option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 32px;
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--ink-900);
+    font-weight: 500;
+  }
+
+  .topbar-select option::before {
+    content: attr(data-country);
+    width: 1.5rem;
+    color: var(--ink-500);
+    font-size: 0.75rem;
+  }
+
+  .topbar-select option::after {
+    content: attr(data-symbol);
+    margin-left: auto;
+    color: var(--ink-500);
+  }
+
+  .topbar-select option:hover {
+    background: var(--ink-50);
+  }
+
+  .topbar-select option:checked {
+    background: var(--brand-50);
+    color: var(--brand-700);
+  }
+
+  .topbar-select option:checked::before,
+  .topbar-select option:checked::after {
+    color: var(--brand-700);
+  }
+
+  /* Hides the default tick, since the green row already shows the choice */
+  .topbar-select option::checkmark {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .topbar-inner {
+    justify-content: flex-end;
+  }
 }
 
 .controls {
