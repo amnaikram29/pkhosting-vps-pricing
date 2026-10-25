@@ -12,17 +12,6 @@
   <a class="skip" href="#main">Skip to main content</a>
 
   <header class="site-header">
-    <!-- Hidden without JS, because the select needs JS to do anything -->
-    <div class="topbar js-only">
-      <div class="container topbar-inner" id="topbar-inner">
-        <label class="sr-only" for="currency">Currency</label>
-        <select class="topbar-select" id="currency">
-          <option value="PKR" data-country="PK" data-symbol="Rs">PKR</option>
-          <option value="USD" data-country="US" data-symbol="$">USD</option>
-          <option value="GBP" data-country="GB" data-symbol="£">GBP</option>
-        </select>
-      </div>
-    </div>
     <div class="container site-header-inner">
       <a class="brand" href="#" aria-label="PKHosting">
         <span class="brand-text" aria-hidden="true">PK</span>
@@ -39,6 +28,12 @@
         </svg>
         <span class="brand-text" aria-hidden="true">Host<span class="brand-i">&#305;</span>ng</span>
       </a>
+      <label class="sr-only" for="currency">Currency</label>
+      <select class="currency-select" id="currency">
+        <option value="PKR" data-country="PK" data-symbol="Rs">PKR</option>
+        <option value="USD" data-country="US" data-symbol="$">USD</option>
+        <option value="GBP" data-country="GB" data-symbol="£">GBP</option>
+      </select>
       <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">
         <svg class="nav-toggle-open" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
           <path d="M3 5h14M3 10h14M3 15h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -51,15 +46,13 @@
         <ul class="nav-list">
           <li><a class="nav-link" href="#plans">Plans</a></li>
           <li><a class="nav-link" href="#compare">Compare</a></li>
-          <li><a class="nav-link" href="#faq">FAQs</a></li>
+          <li><a class="nav-link" href="#faq">FAQ</a></li>
           <li><a class="nav-link" href="#payments">Payments</a></li>
           <li class="nav-cta"><a class="btn btn-primary" href="#plans">Get Started
             <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </a>
-          <!-- Empty slot: js/app.js moves the currency select in here while the hamburger shows -->
-          <div class="nav-currency" id="nav-currency"></div></li>
+          </a></li>
         </ul>
       </nav>
     </div>
@@ -99,7 +92,7 @@
         <div class="controls js-only">
           <div class="toggle" role="group" aria-label="Billing period">
             <button type="button" data-period="monthly" aria-pressed="true">Monthly</button>
-            <button type="button" data-period="annual" aria-pressed="false">Annually <span class="tab-chip"></span></button>
+            <button type="button" data-period="annual" aria-pressed="false">Annually <span class="chip"></span></button>
           </div>
         </div>
 
@@ -111,7 +104,7 @@
             <h3 class="card-title" id="plan-starter">Starter</h3>
             <p class="card-desc">For small sites, side projects &amp; bots</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">2,400</span><span class="per">/month</span></p>
-            <p class="billed">Billed monthly · or Rs 24,000/yr (10× monthly) if billed annually</p>
+            <p class="billed">Billed monthly</p>
             <button type="button" class="btn btn-card">Choose Starter</button>
             <hr class="divider">
             <ul class="features">
@@ -129,7 +122,7 @@
             <h3 class="card-title" id="plan-growth">Growth</h3>
             <p class="card-desc">For busy websites &amp; database-backed apps</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">4,800</span><span class="per">/month</span></p>
-            <p class="billed">Billed monthly · or Rs 48,000/yr (10× monthly) if billed annually</p>
+            <p class="billed">Billed monthly</p>
             <button type="button" class="btn btn-card">Choose Growth</button>
             <hr class="divider">
             <ul class="features">
@@ -146,7 +139,7 @@
             <h3 class="card-title" id="plan-scale">Scale</h3>
             <p class="card-desc">For several apps with steady traffic</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">9,600</span><span class="per">/month</span></p>
-            <p class="billed">Billed monthly · or Rs 96,000/yr (10× monthly) if billed annually</p>
+            <p class="billed">Billed monthly</p>
             <button type="button" class="btn btn-card">Choose Scale</button>
             <hr class="divider">
             <ul class="features">
@@ -163,7 +156,7 @@
             <h3 class="card-title" id="plan-dedicated">Dedicated Core</h3>
             <p class="card-desc">For workloads that need cores nobody else shares</p>
             <p class="price"><span class="currency">Rs</span><span class="amount">19,500</span><span class="per">/month</span></p>
-            <p class="billed">Billed monthly · or Rs 195,000/yr (10× monthly) if billed annually</p>
+            <p class="billed">Billed monthly</p>
             <button type="button" class="btn btn-card">Choose Dedicated Core</button>
             <hr class="divider">
             <ul class="features">
@@ -344,9 +337,9 @@
         <h2 class="footer-heading" id="footer-nav-h">Pricing</h2>
         <ul class="footer-links">
           <li><a class="footer-link" href="#plans">Plans</a></li>
-          <li><a class="footer-link" href="#compare">Compare plans</a></li>
-          <li><a class="footer-link" href="#faq">FAQs</a></li>
-          <li><a class="footer-link" href="#payments">Ways to pay</a></li>
+          <li><a class="footer-link" href="#compare">Compare</a></li>
+          <li><a class="footer-link" href="#faq">FAQ</a></li>
+          <li><a class="footer-link" href="#payments">Payments</a></li>
         </ul>
       </nav>
 

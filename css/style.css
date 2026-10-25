@@ -42,9 +42,8 @@
 
   /* Fixed so the mobile drawer knows how much room the header takes */
   --header-h: 72px;
-  --topbar-h: 46px;
   /* Pinned header + 1px border, plus a little room so anchored headings do
-     not touch it. The top bar is not counted: it scrolls away. */
+     not touch it. */
   --header-offset: 5rem;
 }
 
@@ -236,17 +235,23 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) var(--space-5);
+  gap: var(--space-2) var(--space-3);
   min-height: var(--header-h);
   padding-top: var(--space-3);
   padding-bottom: var(--space-3);
 }
 
+/* Hamburger layout: select left, brand centred, button right. Equal outer
+   columns keep the brand in the true centre. The drawer is position: absolute,
+   so it takes no grid cell. Without JS none of this applies. */
+.js .site-header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
 /* Header stays pinned while the drawer is open, so the close button is
    always reachable. Without JS there is no drawer, so no need to pin it
    (see the 768px rule). */
-/* The top bar only shows from 1200px (see below), so the header pins at 0
-   until then. */
 .js .site-header {
   position: sticky;
   top: 0;
@@ -292,8 +297,9 @@ img {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  /* Slightly smaller on phones, full 44px tap target from 640px */
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 1px solid var(--ink-200);
   border-radius: var(--radius-md);
@@ -302,9 +308,16 @@ img {
   cursor: pointer;
 }
 
+@media (min-width: 640px) {
+  .nav-toggle {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 .js .nav-toggle {
   display: inline-flex;
-  margin-left: auto;
+  justify-self: end;
 }
 
 /* One button, two icons: aria-expanded decides which one shows */
@@ -344,14 +357,21 @@ img {
 .brand {
   display: inline-flex;
   align-items: center;
-  /* Keeps the tap target at 44px even though the text line is only 1.5rem */
+  /* Keeps the tap target at 44px even though the text line is shorter */
   min-height: 44px;
-  font-size: 1.5rem;
+  /* Smaller on phones so it fits between the select and the menu button */
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.025em;
   color: var(--ink-600);
   text-decoration: none;
+}
+
+@media (min-width: 640px) {
+  .brand {
+    font-size: 1.5rem;
+  }
 }
 
 /* Everything is sized in em so the icon and the dot scale with the text */
@@ -431,8 +451,6 @@ img {
 .js .nav-cta {
   display: flex;
   align-items: center;
-  /* Button on the left, currency select on the right */
-  justify-content: space-between;
   gap: var(--space-3);
   padding: var(--space-4) 0;
   border-bottom: 0;
@@ -464,7 +482,9 @@ img {
    1200px, not 1024px: a 1024px laptop keeps the hamburger, like the
    reference. js/app.js uses the same number. */
 @media (min-width: 1200px) {
-  .site-header-inner {
+  .site-header-inner,
+  .js .site-header-inner {
+    display: flex;
     flex-wrap: nowrap;
   }
 
@@ -607,68 +627,43 @@ img {
   display: flex;
 }
 
-/* ---------- Top bar ---------- */
-/* Must come after .js-only: that rule makes things flex, which would stop the
-   container inside from centring. */
-.js .topbar {
-  /* Hidden while the hamburger shows: the select lives in the drawer then */
-  display: none;
-  /* 30px select + 8px above and below = --topbar-h */
-  padding: var(--space-2) 0;
-  background: var(--ink-950);
-  color: var(--ink-200);
-  font-size: var(--text-sm);
-  min-height: var(--topbar-h);
-}
-
-/* Same breakpoint as the inline nav above and desktopQuery in js/app.js */
-@media (min-width: 1200px) {
-  .js .topbar {
-    display: block;
-  }
-
-  /* The negative top is the trick: the header sticks once its top is 46px
-     above the window, which is exactly when the top bar has scrolled out of
-     view. So the bar leaves with the page and the main row stays pinned. */
-  .js .site-header {
-    top: calc(-1 * var(--topbar-h));
-  }
-}
-
-/* Sits at the right end of the Get Started row; empty (and invisible) on desktop */
-.nav-currency:empty {
+/* Needs JS to do anything, so it stays hidden without it. Below 1200px it is the first item
+   in the header (left of the brand), above that just left of Get Started
+   (placeCurrencySelect in js/app.js). */
+.currency-select {
   display: none;
 }
 
-.topbar-inner {
-  display: flex;
-  align-items: center;
-  /* Push the select to the right edge at every screen size */
-  justify-content: flex-end;
+/* justify-self stops the grid from stretching it across its whole column */
+.js .currency-select {
+  display: inline-block;
+  justify-self: start;
 }
 
-/* The chevron is a data URI, so it needs no file and no request */
-.topbar-select {
+.currency-select {
   appearance: none;
-  /* Still above the 24px WCAG minimum target size */
-  min-height: 30px;
+  /* Same size as the menu button: 40px on phones, 44px from 640px */
+  min-height: 40px;
   padding: 0 var(--space-5) 0 var(--space-3);
-  border: 1px solid var(--ink-500);
+  border: 1px solid var(--ink-200);
   border-radius: var(--radius-md);
-  background: var(--ink-900) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23dad6d1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right var(--space-2) center / 12px 12px;
-  color: #fff;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23544c46' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right var(--space-2) center / 12px 12px;
+  color: var(--ink-900);
   font: inherit;
+  font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
 }
 
-.topbar-select:hover {
-  border-color: var(--ink-200);
+@media (min-width: 640px) {
+  .currency-select {
+    min-height: 44px;
+    font-size: var(--text-base);
+  }
 }
 
-/* Inside the select, so the ring is not clipped by the top of the window */
-.topbar-select:focus-visible {
-  outline-offset: -3px;
+.currency-select:hover {
+  border-color: var(--ink-500);
 }
 
 /* Newer Chrome and Edge let CSS style the opened list of a real <select>.
@@ -676,30 +671,34 @@ img {
    the control still works everywhere. The country code and symbol come from
    data attributes on each <option> in the HTML. */
 @supports (appearance: base-select) {
-  .topbar-select,
-  .topbar-select::picker(select) {
+  .currency-select,
+  .currency-select::picker(select) {
     appearance: base-select;
   }
 
   /* The browser draws its own arrow now, so drop the data-URI chevron */
   /* The button becomes a flex box in this mode, and its content sits at the
      top unless it is centred */
-  .topbar-select {
+  /* .js is needed to beat the display rule that shows the select. A flex box
+     keeps the name and the arrow on one row. */
+  .js .currency-select {
+    display: inline-flex;
     align-items: center;
+    gap: var(--space-2);
     padding: 0 var(--space-3);
     background-image: none;
   }
 
-  .topbar-select::picker-icon {
-    color: var(--ink-200);
+  .currency-select::picker-icon {
+    color: var(--ink-600);
     transition: rotate 150ms;
   }
 
-  .topbar-select:open::picker-icon {
+  .currency-select:open::picker-icon {
     rotate: 180deg;
   }
 
-  .topbar-select::picker(select) {
+  .currency-select::picker(select) {
     min-width: 11rem;
     margin-top: var(--space-2);
     padding: var(--space-2);
@@ -709,7 +708,7 @@ img {
     box-shadow: 0 8px 24px rgb(18 15 13 / 0.2);
   }
 
-  .topbar-select option {
+  .currency-select option {
     display: flex;
     align-items: center;
     gap: var(--space-3);
@@ -720,42 +719,36 @@ img {
     font-weight: 500;
   }
 
-  .topbar-select option::before {
+  .currency-select option::before {
     content: attr(data-country);
     width: 1.5rem;
     color: var(--ink-500);
     font-size: 0.75rem;
   }
 
-  .topbar-select option::after {
+  .currency-select option::after {
     content: attr(data-symbol);
     margin-left: auto;
     color: var(--ink-500);
   }
 
-  .topbar-select option:hover {
+  .currency-select option:hover {
     background: var(--ink-50);
   }
 
-  .topbar-select option:checked {
+  .currency-select option:checked {
     background: var(--brand-50);
     color: var(--brand-700);
   }
 
-  .topbar-select option:checked::before,
-  .topbar-select option:checked::after {
+  .currency-select option:checked::before,
+  .currency-select option:checked::after {
     color: var(--brand-700);
   }
 
   /* Hides the default tick, since the green row already shows the choice */
-  .topbar-select option::checkmark {
+  .currency-select option::checkmark {
     display: none;
-  }
-}
-
-@media (min-width: 768px) {
-  .topbar-inner {
-    justify-content: flex-end;
   }
 }
 
@@ -790,21 +783,20 @@ img {
   cursor: pointer;
 }
 
-/* White with accent-500 text is 5.0:1. Hidden while empty (no JS). */
-.tab-chip {
-  margin-left: var(--space-1);
-  padding: 2px 10px;
-  border: 1px solid rgba(216, 35, 42, 0.3);
+/* Only 12 tokens are allowed, so the tint and the dark red are mixed from accent-500.
+   Contrast is 6.3:1. Hidden while empty (no JS). */
+.chip {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 2px var(--space-2);
   border-radius: 999px;
-  background: #fff;
-  color: var(--accent-500);
-  font-size: 0.6875rem;
+  background: color-mix(in srgb, var(--accent-500) 10%, #fff);
+  color: color-mix(in srgb, var(--accent-500) 75%, var(--ink-950));
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 }
 
-.tab-chip:empty {
+.chip:empty {
   display: none;
 }
 

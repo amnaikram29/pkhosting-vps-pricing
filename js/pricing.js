@@ -37,6 +37,11 @@ var Pricing = (function () {
     };
   }
 
+  // The same for every plan, so the chip text is computed instead of typed
+  function getSavingsPercent() {
+    return Math.round(((YEAR_MONTHS - PAID_MONTHS) / YEAR_MONTHS) * 100);
+  }
+
   // No rounding here, so the total is never built from rounded pieces
   function convert(pkr, currency) {
     return pkr / RATES[currency];
@@ -61,6 +66,7 @@ var Pricing = (function () {
     PAID_MONTHS: PAID_MONTHS,
     YEAR_MONTHS: YEAR_MONTHS,
     getPlanPrices: getPlanPrices,
+    getSavingsPercent: getSavingsPercent,
     convert: convert,
     formatAmount: formatAmount,
     isValidCurrency: isValidCurrency,

@@ -38,9 +38,8 @@ document.addEventListener("keydown", function (event) {
   }
 
   if (event.key === "Tab") {
-    // While the drawer is open, Tab only cycles through the toggle, the links
-    // and the currency select
-    var focusable = [navToggle].concat(Array.from(siteNav.querySelectorAll("a, select")));
+    // While the drawer is open, Tab only cycles through the toggle and the links
+    var focusable = [navToggle].concat(Array.from(siteNav.querySelectorAll("a")));
     var first = focusable[0];
     var last = focusable[focusable.length - 1];
 
@@ -54,11 +53,18 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-// One select, two homes: the top bar on desktop, the drawer while the hamburger
-// shows. Moving the same element keeps its id, listeners and value.
+// One select, two homes: just left of Get Started on desktop, just left of the
+// hamburger below that (first in the header, so Tab order matches the screen).
+// Moving the same element keeps its id, listeners and value.
 function placeCurrencySelect() {
-  var home = desktopQuery.matches ? "topbar-inner" : "nav-currency";
-  document.getElementById(home).appendChild(document.getElementById("currency"));
+  var select = document.getElementById("currency");
+  if (desktopQuery.matches) {
+    var getStarted = document.querySelector(".nav-cta .btn");
+    getStarted.parentNode.insertBefore(select, getStarted);
+  } else {
+    var header = navToggle.parentNode;
+    header.insertBefore(select, header.firstChild);
+  }
 }
 
 placeCurrencySelect();
@@ -134,7 +140,6 @@ desktopQuery.addEventListener("change", function (event) {
     var prices = Pricing.getPlanPrices(monthly, state.period);
     var perMonth = Pricing.formatAmount(prices.perMonthPkr, state.currency);
     var billed = Pricing.formatAmount(prices.billedPkr, state.currency);
-    var yearly = Pricing.formatAmount(Pricing.getPlanPrices(monthly, "annual").billedPkr, state.currency);
 
     // The default monthly PKR price is already written in the HTML, so leave it alone
     var isDefaultView = state.period === "monthly" && state.currency === "PKR";
@@ -145,11 +150,9 @@ desktopQuery.addEventListener("change", function (event) {
     }
 
     if (state.period === "annual") {
-      card.querySelector(".billed").textContent =
-        joinAmount(billed) + " billed once a year (10× monthly) · Recurring rate; notified price changes may apply";
+      card.querySelector(".billed").textContent = joinAmount(billed) + " billed once a year";
     } else {
-      card.querySelector(".billed").textContent =
-        "Billed monthly · or " + joinAmount(yearly) + "/yr (10× monthly) if billed annually";
+      card.querySelector(".billed").textContent = "Billed monthly";
     }
   }
 
@@ -195,28 +198,10 @@ desktopQuery.addEventListener("change", function (event) {
     announce();
   });
 
-  // The top bar scrolls out of view, and the browser cannot scroll it back by
-  // itself. So when keyboard focus lands on the select, go back to the top.
-  // Waiting one frame lets the browser finish its own scrolling first.
-  // Inside the drawer the header is pinned, so there is nothing to scroll back to.
-  currencySelect.addEventListener("focus", function () {
-    if (isNavOpen()) {
-      return;
-    }
-    requestAnimationFrame(function () {
-      window.scrollTo(0, 0);
-    });
-  });
-
   // The chip's percent comes from the same maths as the prices, never typed.
-  // Taking the biggest across the cards makes "up to" honest.
+  // It is not aria-hidden: "Annually Save 17%" is useful in the button's name.
   function showSavingsChip() {
-    var best = 0;
-    cards.forEach(function (card) {
-      var percent = Pricing.getPlanPrices(Number(card.dataset.monthly), "annual").savedPercent;
-      best = Math.max(best, percent);
-    });
-    document.querySelector(".tab-chip").textContent = "Save up to " + best + "%";
+    document.querySelector(".chip").textContent = "Save " + Pricing.getSavingsPercent() + "%";
   }
 
   load();

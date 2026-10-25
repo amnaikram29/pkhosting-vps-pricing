@@ -25,6 +25,10 @@ check("Growth annual: 4000/month, billed 48000, saved 9600, 17%", function () {
   assert.strictEqual(p.savedPercent, 17);
 });
 
+check("Savings percent is 17", function () {
+  assert.strictEqual(Pricing.getSavingsPercent(), 17);
+});
+
 check("Starter annual per month is 2000", function () {
   assert.strictEqual(Pricing.getPlanPrices(2400, "annual").perMonthPkr, 2000);
 });
