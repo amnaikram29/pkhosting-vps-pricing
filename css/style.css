@@ -30,6 +30,7 @@
   --space-8: 64px;
 
   --text-sm: 0.875rem;
+  --text-md: 0.9375rem;
   --text-base: 1rem;
   --text-lg: 1.125rem;
 
@@ -851,5 +852,123 @@ img {
 @media (min-width: 1200px) {
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Compare ---------- */
+.compare {
+  padding: var(--space-8) 0;
+  background: #fff;
+}
+
+/* The hint only matters while the table can scroll, so it hides at 45rem */
+.scroll-hint {
+  margin: var(--space-4) 0 0;
+  color: var(--ink-500);
+  font-size: var(--text-sm);
+}
+
+/* Only this box scrolls sideways, never the page. The scrollbar is left at
+   its default so it stays visible when the table overflows. */
+.table-scroll {
+  max-width: 100%;
+  margin-top: var(--space-6);
+  overflow-x: auto;
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+/* Negative offset keeps the ring inside the box, so the rounded overflow
+   does not clip it */
+.table-scroll:focus-visible {
+  outline-offset: -2px;
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--text-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.table thead th {
+  padding: var(--space-3) var(--space-4);
+  background: var(--ink-50);
+  color: var(--ink-900);
+  font-weight: 700;
+}
+
+.table tbody th,
+.table td {
+  padding: var(--space-4);
+  border-top: 1px solid var(--ink-100);
+}
+
+.table tbody th {
+  color: var(--ink-900);
+  font-weight: 700;
+}
+
+.table td {
+  color: var(--ink-600);
+}
+
+/* Small bold green text link, like the reference. brand-700 is 6.4:1 on
+   white and 5.8:1 on brand-50. */
+.table-link {
+  color: var(--brand-700);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.table-link:hover {
+  text-decoration: underline;
+}
+
+/* Row labels stay in view while the table scrolls. The background must be
+   opaque or the cells sliding underneath show through. There is no vertical
+   divider on purpose, to match the reference. */
+.table th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: #fff;
+}
+
+.table thead th:first-child {
+  background: var(--ink-50);
+}
+
+/* Borders and a light fill mark the Growth column without extra markup. The
+   cells are not positioned, so they never sit above the sticky first column.
+   The .table prefix lets it win over the td and thead th rules above. */
+.table .col-featured {
+  border-right: 2px solid var(--brand-600);
+  border-left: 2px solid var(--brand-600);
+  background: var(--brand-50);
+  color: var(--ink-900);
+}
+
+@media (min-width: 640px) {
+  .compare {
+    padding: 80px 0;
+  }
+}
+
+/* 45rem: from here the table's 640px minimum plus the page padding and a
+   classic scrollbar fits, so nothing scrolls and the hint would be wrong */
+@media (min-width: 45rem) {
+  .scroll-hint {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .compare {
+    padding: 96px 0;
   }
 }
